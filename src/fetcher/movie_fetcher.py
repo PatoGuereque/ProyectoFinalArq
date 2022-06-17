@@ -1,20 +1,8 @@
 import requests
 import re
 import csv
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 from bs4 import BeautifulSoup
-
-from movies.models import get_postgres_uri
-
-DEFAULT_SESSION_FACTORY = sessionmaker(
-    bind=create_engine(
-        get_postgres_uri(),
-        isolation_level="REPEATABLE READ",
-    )
-)
-session = DEFAULT_SESSION_FACTORY()
-
+from database.database_controller import session
 
 def main():
     # Downloading imdb top 250 movie's data
