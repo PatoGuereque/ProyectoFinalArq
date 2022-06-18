@@ -1,4 +1,3 @@
-import uuid
 from ..extensions import db
 from ..models import User
 
@@ -27,13 +26,14 @@ class Auth:
             }
             return response_object, 500
     
-    def register(username, password):
+    def register(username, password, email, preferences):
         user = User.query.filter_by(username=username).first()
         if not user:
             new_user = User(
                 username=username,
                 password=password,
-                favorites="nada"
+                email=email,
+                preferences=preferences
             )
             db.session.add(new_user)
             db.session.commit()
