@@ -1,1 +1,0 @@
-from .database_controller import start_mappers

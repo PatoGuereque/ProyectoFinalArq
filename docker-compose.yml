@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./src:/app/src
+      - ./app:/app/app
       - ./tests:/tests
     ports:
       - "5005:80"
