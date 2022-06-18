@@ -18,7 +18,6 @@ paths:
         - auth
       summary: Attempts to log into the system                
       requestBody:
-        description: Optional description in *Markdown*
         required: true
         content:
           application/json:
