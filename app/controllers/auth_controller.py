@@ -3,6 +3,7 @@ from flask import request
 from flask import Blueprint
 
 from app.utils.auth_util import validate_auth
+from app.utils.preferences_util import validate_preferences
 from ..services import Auth
 from ..extensions import db
 
@@ -10,7 +11,7 @@ auth_blueprint = Blueprint('/auth', __name__)
 
 @auth_blueprint.route('/login', methods=["POST"])
 def login():
-    return validate_auth(request, lambda r: "success")
+    return validate_auth(request, lambda r, u: "success")
 
 @auth_blueprint.route('/register', methods=["POST"])
 def register():
@@ -24,10 +25,8 @@ def register():
     email = json_body['email']
     preferences = json_body['preferences']
 
-    validate_preferences = preferences.split(",")
-    for preference in validate_preferences:
-        if not isdigit(preference):
-            return "Invalid preference number", 400
+    if not validate_preferences(preferences):
+        return "Invalid preference number", 400
     
     return Auth.register(username, password, email, preferences)
 

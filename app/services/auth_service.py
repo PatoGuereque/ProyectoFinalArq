@@ -7,11 +7,7 @@ class Auth:
             # fetch the user data
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
-                response_object = {
-                    'status': 'success',
-                    'message': 'Successfully logged in.',
-                }
-                return response_object, 200
+                return user, 200
             else:
                 response_object = {
                     'status': 'fail',

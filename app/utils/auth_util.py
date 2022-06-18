@@ -9,7 +9,7 @@ def validate_auth(request, handler):
     username = json_body['username']
     password = json_body['password']
     
-    response_message, response_code = Auth.login(username, password)
+    response_object, response_code = Auth.login(username, password)
     if response_code != 200:
-        return response_message, response_code
-    return handler(request)
+        return response_object, response_code
+    return handler(request, response_object)
