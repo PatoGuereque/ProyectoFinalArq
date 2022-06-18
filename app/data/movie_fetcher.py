@@ -2,7 +2,6 @@ import requests
 import re
 import csv
 from bs4 import BeautifulSoup
-from database.database_controller import session
 
 def main():
     # Downloading imdb top 250 movie's data

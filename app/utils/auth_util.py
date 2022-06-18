@@ -1,6 +1,13 @@
+from flask import request
+from typing import Callable
+
+from app.models.user import User
 from ..services import Auth
 
-def validate_auth(request, handler):
+####################
+# Liskov Principle #
+####################
+def validate_auth(request, handler: Callable[[request, User], str]):
     json_body = request.json
 
     if not "password" in json_body or not "password" in json_body:

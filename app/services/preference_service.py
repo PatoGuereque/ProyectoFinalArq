@@ -3,9 +3,16 @@ from ..models import User
 from ..extensions import db
 
 class Preferences:
+    
+    ###################################
+    # Single Responsibility Principle #
+    ###################################
     def get_preferences(request, user: User):
         return user.preferences
 
+    ###################################
+    # Single Responsibility Principle #
+    ###################################
     def update_preferences(request, user: User):
         json_body = request.json
         if not "preferences" in json_body:

@@ -8,6 +8,10 @@ filename = os.path.join(dirname, '../data/movie_results.csv')
 movies_df = pd.read_csv(filename)
 
 class MovieService:
+    
+    ###################################
+    # Single Responsibility Principle #
+    ###################################
     def query_movies(request, user: User):
         preferences = list(map(int, user.preferences.split(',')))
         result = 1

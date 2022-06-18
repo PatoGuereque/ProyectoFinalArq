@@ -2,6 +2,9 @@ from ..extensions import db
 from ..models import User
 
 class Auth:
+    ###################################
+    # Single Responsibility Principle #
+    ###################################
     def login(username, password):
         try:
             # fetch the user data
@@ -22,6 +25,9 @@ class Auth:
             }
             return response_object, 500
     
+    ###################################
+    # Single Responsibility Principle #
+    ###################################
     def register(username, password, email, preferences):
         user = User.query.filter_by(username=username).first()
         if not user:
