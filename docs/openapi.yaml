@@ -1,0 +1,222 @@
+openapi: '3.0.0'
+info:
+  description: |
+    Las rutas del proyecto de diseño de aqruitectura de software
+  version: 1.0.0
+  title: Proyecto Final
+tags:
+  - name: auth
+    description: Authentication routes
+  - name: movies
+    description: Routes to search movies
+  - name: preferences
+    description: Preferences
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: Attempts to log into the system                
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              user:
+                summary: Example User
+                value:
+                  username: "test"
+                  password: "test123"
+      responses:
+        '200':
+          description: A successful login
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        '401':
+          description: Invalid username or email
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: Registers a user in our system                
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+                - email
+                - preferences
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+                preferences:
+                  type: string
+            examples:
+              user:
+                summary: Example User
+                value:
+                  username: "test"
+                  password: "test123"
+                  email: "test@example.com"
+                  preferences: "1,2,3"
+      responses:
+        '200':
+          description: A successful rergistration
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: success
+        '409':
+          description: User already exists.
+  /preferences/query:
+    post:
+      tags:
+        - preferences
+      summary: Obtains the user's preferences                 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              user:
+                summary: Example User
+                value:
+                  username: "test"
+                  password: "test123"
+      responses:
+        '200':
+          description: The saved preferences as a string
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "1,2,3"
+        '401':
+          description: Invalid username or email
+  /preferences/update:
+    post:
+      tags:
+        - preferences
+      summary: Update the user's preferences                 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+                - preferences
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                preferences:
+                  type: string
+            examples:
+              user:
+                summary: Example User
+                value:
+                  username: "test"
+                  password: "test123"
+                  preferences: "1,2,3"
+      responses:
+        '200':
+          description: Update successful
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "1,2,3"
+        '400':
+          description: Invalid preferences, must be at most 3 with values [1 .. 5]
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Invalid preference number"
+        '401':
+          description: Invalid username or email
+  /movies/search:
+    post:
+      tags:
+        - movies
+      summary: Obtain the user's movie recommendation depending on the magic preference key
+      parameters:
+        - in: query
+          name: rating
+          schema:
+            type: boolean
+          description: Sort the movies by ascending if set to false, else sort by descending
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+            examples:
+              user:
+                summary: Example User
+                value:
+                  username: "test"
+                  password: "test123"
+      responses:
+        '200':
+          description: The top 10 movie recommendations
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  id                                         movie_title    rating  year
+                  249                                     The Handmaiden  8.012898  2016
+                  245                               La bella y la bestia  8.017155  1991
+                  241                               El pecado compartido  8.021495  1966
+                  237  Piratas del Caribe - La maldición del Perla Negra  8.027322  2003
+                  233                           La leyenda del indomable  8.028977  1967
+                  229                      Rebeca, una mujer inolvidable  8.030754  1940
+                  225                                     Los increíbles  8.034842  2004
+                  221                                 Hechizo del tiempo  8.041817  1993
+                  217                                      El mago de Oz  8.046927  1939
+                  213                                         Terminator  8.052421  1984
+        '401':
+          description: Invalid username or email
