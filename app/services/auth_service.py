@@ -1,5 +1,7 @@
+from app.factory.user_factory import UserFactory
 from ..extensions import db
 from ..models import User
+
 
 class Auth:
     ###################################
@@ -24,19 +26,15 @@ class Auth:
                 'message': 'Try again'
             }
             return response_object, 500
-    
+
     ###################################
     # Single Responsibility Principle #
     ###################################
     def register(username, password, email, preferences):
         user = User.query.filter_by(username=username).first()
         if not user:
-            new_user = User(
-                username=username,
-                password=password,
-                email=email,
-                preferences=preferences
-            )
+            new_user = UserFactory.create_user(
+                username, password, email, preferences)
             db.session.add(new_user)
             db.session.commit()
             return "True"
