@@ -11,7 +11,9 @@ class User(db.Model):
     
     @property
     def password(self):
-        # ISP principle
+        #################
+        # ISP principle #
+        #################
         raise AttributeError('password: write-only field')
 
     @password.setter

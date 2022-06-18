@@ -9,8 +9,4 @@ lxml
 bpython
 flask_sqlalchemy
 flask_bcrypt
-
-# tests
-pytest
-pytest-icdiff
-mypy
+pandas
